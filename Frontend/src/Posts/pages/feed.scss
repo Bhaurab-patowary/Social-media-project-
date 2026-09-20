@@ -1,0 +1,907 @@
+// feed.scss - Modern & Futuristic Cyber-Glass Styling for Feed Page
+
+// Color Palette & Design Tokens
+$bg-dark: #07090e;
+$bg-card: rgba(15, 23, 42, 0.72);
+$bg-card-hover: rgba(22, 33, 58, 0.85);
+$bg-glass: rgba(255, 255, 255, 0.04);
+$border-glass: rgba(255, 255, 255, 0.08);
+$border-glow: rgba(99, 102, 241, 0.4);
+
+$neon-cyan: #06b6d4;
+$neon-cyan-glow: rgba(6, 182, 212, 0.4);
+$neon-purple: #8b5cf6;
+$neon-indigo: #6366f1;
+$neon-pink: #ec4899;
+$neon-pink-glow: rgba(236, 72, 153, 0.4);
+$neon-emerald: #10b981;
+$danger: #f43f5e;
+
+$gradient-cyber: linear-gradient(135deg, #06b6d4 0%, #6366f1 50%, #ec4899 100%);
+$gradient-indigo-purple: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+$gradient-card: linear-gradient(145deg, rgba(20, 29, 50, 0.7) 0%, rgba(10, 15, 30, 0.8) 100%);
+
+$text-primary: #f8fafc;
+$text-secondary: #94a3b8;
+$text-muted: #64748b;
+
+$radius-sm: 8px;
+$radius-md: 14px;
+$radius-lg: 20px;
+$radius-xl: 26px;
+
+.futuristic-feed-page {
+  min-height: 100vh;
+  width: 100%;
+  background-color: $bg-dark;
+  color: $text-primary;
+  position: relative;
+  overflow-x: hidden;
+  font-family: inherit;
+
+  // Background Ambient Glow Orbs
+  .ambient-glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.28;
+    animation: floatGlow 14s ease-in-out infinite alternate;
+
+    &.glow-1 {
+      top: -10%;
+      left: 10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #6366f1, transparent 70%);
+    }
+
+    &.glow-2 {
+      top: 40%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #06b6d4, transparent 70%);
+      animation-delay: -5s;
+    }
+
+    &.glow-3 {
+      bottom: -10%;
+      left: 25%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, #ec4899, transparent 70%);
+      animation-delay: -9s;
+    }
+  }
+
+  // Futuristic Sticky Navigation
+  .feed-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    background: rgba(7, 9, 14, 0.82);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid $border-glass;
+    padding: 0.85rem 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: $text-primary;
+      cursor: pointer;
+
+      .logo-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: $gradient-indigo-purple;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 15px $border-glow;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          border-radius: 14px;
+          background: $gradient-cyber;
+          z-index: -1;
+          opacity: 0.6;
+          filter: blur(4px);
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
+          color: #ffffff;
+        }
+      }
+
+      .brand-name {
+        font-size: 1.25rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        .brand-accent {
+          background: $gradient-cyber;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .btn-create-post {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: $gradient-indigo-purple;
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 0.55rem 1.15rem;
+        border-radius: $radius-md;
+        font-size: 0.875rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+          transition: 0.5s;
+        }
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 0 24px rgba(99, 102, 241, 0.65);
+
+          &::before {
+            left: 100%;
+          }
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+
+      .user-profile-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid $border-glass;
+        padding: 0.45rem 0.9rem;
+        border-radius: 9999px;
+        color: $text-primary;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        .avatar-glow {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          background: $gradient-cyber;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 0.75rem;
+          font-weight: 700;
+          box-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.12);
+          border-color: rgba(255, 255, 255, 0.2);
+          transform: translateY(-1px);
+        }
+      }
+
+      .btn-login {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: $text-primary;
+        padding: 0.5rem 1rem;
+        border-radius: $radius-md;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+  }
+
+  // Main Feed Container
+  .feed-main-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  // Sub-header / Feed Filter Bar
+  .feed-controls-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(12px);
+    border: 1px solid $border-glass;
+    padding: 0.5rem 0.85rem;
+    border-radius: $radius-lg;
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.4rem;
+
+      .tab-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: transparent;
+        border: none;
+        color: $text-secondary;
+        padding: 0.45rem 0.85rem;
+        border-radius: $radius-md;
+        font-size: 0.825rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+
+        &:hover {
+          color: $text-primary;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        &.active {
+          color: #ffffff;
+          background: rgba(99, 102, 241, 0.25);
+          border: 1px solid rgba(99, 102, 241, 0.4);
+          box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
+        }
+      }
+    }
+
+    .feed-stats {
+      font-size: 0.775rem;
+      color: $text-muted;
+      font-weight: 500;
+
+      span {
+        color: $neon-cyan;
+        font-weight: 700;
+      }
+    }
+  }
+
+  // Post Cards Stream
+  .posts-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  // Futuristic Post Card
+  .cyber-post-card {
+    background: $gradient-card;
+    border: 1px solid $border-glass;
+    border-radius: $radius-xl;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: cardAppear 0.45s ease-out backwards;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, $neon-cyan, $neon-purple, transparent);
+      opacity: 0.7;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.35);
+      box-shadow: 0 16px 45px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(99, 102, 241, 0.2);
+    }
+
+    // Post Card Header
+    .card-header {
+      padding: 1.15rem 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .author-info {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+
+        .avatar-ring {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          padding: 2px;
+          background: $gradient-cyber;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+
+          .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: $bg-dark;
+          }
+
+          .avatar-initial {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #1e293b;
+            color: $text-primary;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-transform: uppercase;
+          }
+        }
+
+        .author-details {
+          display: flex;
+          flex-direction: column;
+          gap: 0.15rem;
+
+          .username-row {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+
+            .author-name {
+              font-size: 0.95rem;
+              font-weight: 700;
+              color: $text-primary;
+              letter-spacing: -0.01em;
+            }
+
+            .verified-badge {
+              color: $neon-cyan;
+              display: flex;
+              align-items: center;
+            }
+          }
+
+          .post-time {
+            font-size: 0.775rem;
+            color: $text-muted;
+          }
+        }
+      }
+
+      .card-options {
+        position: relative;
+
+        .delete-btn {
+          background: rgba(244, 63, 94, 0.1);
+          border: 1px solid rgba(244, 63, 94, 0.2);
+          color: $danger;
+          padding: 0.4rem 0.65rem;
+          border-radius: $radius-sm;
+          font-size: 0.75rem;
+          font-weight: 600;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          transition: all 0.2s ease;
+
+          svg {
+            width: 13px;
+            height: 13px;
+          }
+
+          &:hover {
+            background: $danger;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
+          }
+        }
+      }
+    }
+
+    // Media Display
+    .card-media {
+      width: 100%;
+      background: #020617;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      max-height: 580px;
+
+      img {
+        width: 100%;
+        height: auto;
+        max-height: 580px;
+        object-fit: contain;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+
+      &:hover img {
+        transform: scale(1.015);
+      }
+
+      // Heart pop particle on double click
+      .double-tap-heart {
+        position: absolute;
+        pointer-events: none;
+        color: #ffffff;
+        filter: drop-shadow(0 0 15px $neon-pink);
+        animation: heartPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+    }
+
+    // Card Body & Content
+    .card-content {
+      padding: 1.15rem 1.4rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+
+      // Action Bar (Likes, Share, etc.)
+      .card-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .left-actions {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .like-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: $text-secondary;
+          padding: 0.5rem 0.95rem;
+          border-radius: 9999px;
+          font-size: 0.875rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+          svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.2s ease, fill 0.2s ease;
+          }
+
+          &:hover {
+            color: #ffffff;
+            border-color: rgba(236, 72, 153, 0.4);
+            background: rgba(236, 72, 153, 0.12);
+            box-shadow: 0 0 12px rgba(236, 72, 153, 0.25);
+
+            svg {
+              transform: scale(1.15);
+              color: $neon-pink;
+            }
+          }
+
+          &.liked {
+            color: #ffffff;
+            background: rgba(236, 72, 153, 0.2);
+            border-color: rgba(236, 72, 153, 0.5);
+            box-shadow: 0 0 16px rgba(236, 72, 153, 0.35);
+
+            svg {
+              color: $neon-pink;
+              fill: $neon-pink;
+              animation: heartPulse 0.3s ease-in-out;
+            }
+          }
+        }
+
+        .share-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: $text-secondary;
+          padding: 0.5rem 0.85rem;
+          border-radius: 9999px;
+          font-size: 0.825rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          svg {
+            width: 15px;
+            height: 15px;
+          }
+
+          &:hover {
+            color: $neon-cyan;
+            background: rgba(6, 182, 212, 0.1);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+          }
+        }
+
+        .post-id-badge {
+          font-size: 0.7rem;
+          font-family: monospace;
+          color: $text-muted;
+          background: rgba(255, 255, 255, 0.03);
+          padding: 0.2rem 0.5rem;
+          border-radius: 4px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+      }
+
+      // Caption
+      .card-caption {
+        font-size: 0.95rem;
+        line-height: 1.55;
+        color: #e2e8f0;
+
+        .caption-author {
+          font-weight: 700;
+          color: $text-primary;
+          margin-right: 0.45rem;
+        }
+
+        .hashtag {
+          color: $neon-cyan;
+          font-weight: 600;
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  // Futuristic Skeleton Loaders
+  .feed-skeleton-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .skeleton-card {
+    background: $gradient-card;
+    border: 1px solid $border-glass;
+    border-radius: $radius-xl;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+      animation: shimmer 1.6s infinite;
+    }
+
+    .skeleton-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .skeleton-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .skeleton-text-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+
+        .skeleton-line {
+          height: 12px;
+          border-radius: 6px;
+          background: rgba(255, 255, 255, 0.06);
+
+          &.short { width: 90px; }
+          &.long { width: 140px; }
+        }
+      }
+    }
+
+    .skeleton-media {
+      width: 100%;
+      height: 320px;
+      border-radius: $radius-md;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .skeleton-caption {
+      height: 16px;
+      width: 75%;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  // Futuristic Empty State
+  .feed-empty-state {
+    text-align: center;
+    padding: 4.5rem 2rem;
+    background: $gradient-card;
+    border: 1px dashed rgba(99, 102, 241, 0.3);
+    border-radius: $radius-xl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.08);
+
+    .holo-icon-wrapper {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $neon-cyan;
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.3);
+      animation: pulseGlow 2.5s infinite ease-in-out;
+
+      svg {
+        width: 38px;
+        height: 38px;
+      }
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: $text-primary;
+    }
+
+    p {
+      color: $text-secondary;
+      max-width: 380px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .btn-create-empty {
+      margin-top: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: $gradient-cyber;
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1.75rem;
+      border-radius: $radius-md;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+      transition: all 0.25s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 30px rgba(6, 182, 212, 0.65);
+      }
+    }
+  }
+
+  // Toast Notification
+  .cyber-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid $neon-cyan;
+    box-shadow: 0 0 20px $neon-cyan-glow;
+    backdrop-filter: blur(12px);
+    color: #ffffff;
+    padding: 0.75rem 1.25rem;
+    border-radius: $radius-md;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    animation: toastSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    svg {
+      width: 18px;
+      height: 18px;
+      color: $neon-cyan;
+    }
+  }
+}
+
+// Animations
+@keyframes floatGlow {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(40px, 60px) scale(1.15);
+  }
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes heartPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1) translateY(-40px);
+  }
+}
+
+@keyframes heartPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(99, 102, 241, 0.55);
+  }
+}
+
+@keyframes toastSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive Tweaks
+@media (max-width: 640px) {
+  .futuristic-feed-page {
+    .feed-navbar {
+      padding: 0.75rem 1rem;
+
+      .brand-name {
+        font-size: 1.1rem;
+      }
+
+      .btn-create-post span {
+        display: none;
+      }
+    }
+
+    .feed-main-container {
+      padding: 1.25rem 0.85rem 3rem;
+    }
+
+    .cyber-post-card {
+      border-radius: $radius-lg;
+
+      .card-header,
+      .card-content {
+        padding: 1rem 1.15rem;
+      }
+    }
+  }
+}
