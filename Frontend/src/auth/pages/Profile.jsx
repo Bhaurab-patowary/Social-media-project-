@@ -91,9 +91,12 @@ const Profile = () => {
         return (
             <div className="profile-page">
                 <div className="profile-container">
-                    <h2 style={{ textAlign: 'center', marginTop: '3rem', color: '#64748b' }}>
+                    {/* <h2 style={{ textAlign: 'center', marginTop: '3rem', color: '#64748b' }}>
                         Loading profile...
-                    </h2>
+                    </h2> */}
+                    <div className="loader">
+                        
+                    </div>
                 </div>
             </div>
         );
