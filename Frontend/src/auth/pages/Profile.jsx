@@ -89,14 +89,23 @@ const Profile = () => {
 
     if (loading) {
         return (
-            <div className="profile-page">
-                <div className="profile-container">
-                    {/* <h2 style={{ textAlign: 'center', marginTop: '3rem', color: '#64748b' }}>
-                        Loading profile...
-                    </h2> */}
+            <div className="profile-page loading-state">
+                <div className="profile-loader-card">
                     <div className="loader">
-                        
+                        <svg viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="loaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#3ddc97" />
+                                    <stop offset="100%" stopColor="#4f7cff" />
+                                </linearGradient>
+                            </defs>
+                            <circle className="track" cx="50" cy="50" r="42" />
+                            <circle className="arc" cx="50" cy="50" r="42" />
+                        </svg>
+                        <div className="core"></div>
                     </div>
+                    <div className="status">Loading profile</div>
+                    <div className="sub">this won't take long</div>
                 </div>
             </div>
         );
@@ -104,16 +113,14 @@ const Profile = () => {
 
     if (error || !profileUser) {
         return (
-            <div className="profile-page">
-                <div className="profile-container">
-                    <h2 style={{ textAlign: 'center', marginTop: '3rem', color: '#ef4444' }}>
+            <div className="profile-page loading-state">
+                <div className="profile-loader-card error-card">
+                    <h2 style={{ textAlign: 'center', color: '#ef4444', marginBottom: '1.25rem', fontSize: '1.25rem' }}>
                         {error || "User not found"}
                     </h2>
-                    <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-                        <button className="back-btn" onClick={() => navigate('/feed')}>
-                            ← Back to Feed
-                        </button>
-                    </div>
+                    <button className="back-btn" onClick={() => navigate('/feed')}>
+                        ← Back to Feed
+                    </button>
                 </div>
             </div>
         );

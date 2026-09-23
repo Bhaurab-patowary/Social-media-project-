@@ -6,28 +6,156 @@
   display: flex;
   justify-content: center;
 
+  &.loading-state {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile-loader-card {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 380px;
+    width: 100%;
+    margin: auto;
+    animation: fadeInScale 0.35s ease-out;
+
+    .loader {
+      --size: 72px;
+      width: var(--size);
+      height: var(--size);
+      margin: 0 auto 1.25rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+      }
+
+      .track {
+        fill: none;
+        stroke: #e2e8f0;      /* subtle modern track */
+        stroke-width: 6;
+      }
+
+      .arc {
+        fill: none;
+        stroke: url(#loaderGradient);
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-dasharray: 200;
+        stroke-dashoffset: 150;
+        transform-origin: 50% 50%;
+        animation: spin 1.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+      }
+
+      .core {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3ddc97, #4f7cff);
+        box-shadow: 0 0 12px rgba(79, 124, 255, 0.5);
+        animation: pulseCore 1.4s ease-in-out infinite alternate;
+      }
+    }
+
+    @keyframes pulseCore {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg);   stroke-dashoffset: 150; }
+      50%  { transform: rotate(450deg); stroke-dashoffset: 40;  }
+      100% { transform: rotate(810deg); stroke-dashoffset: 150; }
+    }
+
+    .status {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 1.5ch;
+        text-align: left;
+        animation: dots 1.4s steps(4, end) infinite;
+      }
+    }
+
+    @keyframes dots {
+      0%   { content: ''; }
+      25%  { content: '.'; }
+      50%  { content: '..'; }
+      75%  { content: '...'; }
+      100% { content: ''; }
+    }
+
+    .sub {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    &.error-card {
+      .back-btn {
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        padding: 0.6rem 1.25rem;
+        border-radius: 12px;
+        font-weight: 600;
+        color: #334155;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #e2e8f0;
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   .profile-container {
     width: 100%;
     max-width: 900px;
     display: flex;
     flex-direction: column;
     gap: 2rem;
-
-    .loader{
-    width: 60px; 
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15rem;
-    margin-left: 25rem;
-    border: 6px solid #333;
-    border-top-color: cyan;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    }
-    @keyframes spin { to{ transform: rotate(360deg);}}
-
   }
 
   // Top Nav / Header
