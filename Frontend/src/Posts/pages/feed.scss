@@ -449,6 +449,36 @@ $radius-xl: 26px;
 
       .card-options {
         position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+
+        .hide-btn {
+          background: rgba(148, 163, 184, 0.12);
+          border: 1px solid rgba(148, 163, 184, 0.25);
+          color: $text-secondary;
+          padding: 0.4rem 0.65rem;
+          border-radius: $radius-sm;
+          font-size: 0.75rem;
+          font-weight: 600;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          transition: all 0.2s ease;
+
+          svg {
+            width: 13px;
+            height: 13px;
+          }
+
+          &:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.4);
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+          }
+        }
 
         .delete-btn {
           background: rgba(244, 63, 94, 0.1);

@@ -39,6 +39,16 @@ export async function likePost(postId) {
     }       
 }
 
+export async function toggleHidePost(postId) {
+    try {
+        const response = await api.patch(`/api/posts/${postId}/hide`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 export async function deletePost(postId) {
     try {
         const response = await api.delete(`/api/posts/${postId}`);

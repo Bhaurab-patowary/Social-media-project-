@@ -4,6 +4,7 @@ import {
     getPosts,
     createPost as createPostService,
     likePost as likePostService,
+    toggleHidePost as toggleHidePostService,
     deletePost as deletePostService,
 } from '../services/post.api'
 
@@ -45,10 +46,17 @@ export function usePost() {
         return data
     }
 
+    const hidePost = async (postId) => {
+        const data = await toggleHidePostService(postId)
+        // If hidden from feed, remove from feed view
+        setPosts((prev) => prev.filter((post) => post._id !== postId))
+        return data
+    }
+
     const removePost = async (postId) => {
         await deletePostService(postId)
         setPosts((prev) => prev.filter((post) => post._id !== postId))
     }
 
-    return { posts, loading, error, fetchPosts, addPost, like, removePost }
+    return { posts, loading, error, fetchPosts, addPost, like, hidePost, removePost }
 }

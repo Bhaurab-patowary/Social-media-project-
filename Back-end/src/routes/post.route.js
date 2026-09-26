@@ -16,6 +16,8 @@ postRoute.get('/', postController.postController)
 
 postRoute.patch("/:id/like", postController.postLikeController)
 
+postRoute.patch("/:id/hide", authUser, postController.toggleHidePostController)
+
 postRoute.delete("/:id", authUser, postController.deletePostController)
 
 module.exports = postRoute

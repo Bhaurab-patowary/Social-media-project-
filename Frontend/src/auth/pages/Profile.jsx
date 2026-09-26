@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { getProfile, updateProfile } from '../services/auth.api';
-import { deletePost } from '../../Posts/services/post.api';
+import { deletePost, toggleHidePost } from '../../Posts/services/post.api';
 import '../profile.scss';
 
 const Profile = () => {
@@ -14,6 +14,7 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [deletingPostId, setDeletingPostId] = useState(null);
+    const [togglingPostId, setTogglingPostId] = useState(null);
 
     // Edit Profile state
     const [isEditing, setIsEditing] = useState(false);
@@ -84,6 +85,23 @@ const Profile = () => {
             alert(err.response?.data?.message || "Failed to delete post");
         } finally {
             setDeletingPostId(null);
+        }
+    };
+
+    const handleToggleHidePost = async (postId) => {
+        try {
+            setTogglingPostId(postId);
+            const res = await toggleHidePost(postId);
+            setPosts((prev) =>
+                prev.map((p) =>
+                    p._id === postId ? { ...p, isHidden: !p.isHidden } : p
+                )
+            );
+        } catch (err) {
+            console.error("Failed to toggle post visibility", err);
+            alert(err.response?.data?.message || "Failed to update visibility");
+        } finally {
+            setTogglingPostId(null);
         }
     };
 
@@ -277,31 +295,61 @@ const Profile = () => {
                     {posts.length > 0 ? (
                         <div className="posts-grid">
                             {posts.map((post) => (
-                                <div key={post._id} className="grid-post-card">
+                                <div key={post._id} className={`grid-post-card ${post.isHidden ? 'is-hidden-post' : ''}`}>
                                     <img src={post.image} alt={post.caption || "Post"} />
+                                    {post.isHidden && (
+                                        <div className="hidden-pill-badge" title="Hidden from public Feed">
+                                            🔒 Hidden
+                                        </div>
+                                    )}
                                     <div className="post-overlay">
                                         <span className="likes-count">❤️ {post.likes || 0}</span>
                                         {post.caption && (
                                             <p className="post-caption">{post.caption}</p>
                                         )}
-                                        <button
-                                            className="delete-post-btn"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleDeletePost(post._id);
-                                            }}
-                                            disabled={deletingPostId === post._id}
-                                            title="Delete this post"
-                                        >
-                                            {deletingPostId === post._id ? (
-                                                <span>Deleting...</span>
-                                            ) : (
-                                                <>
-                                                    <span className="trash-icon">🗑️</span>
-                                                    <span>Delete</span>
-                                                </>
-                                            )}
-                                        </button>
+                                        <div className="overlay-actions">
+                                            <button
+                                                className={`toggle-hide-btn ${post.isHidden ? 'unhide' : 'hide'}`}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleToggleHidePost(post._id);
+                                                }}
+                                                disabled={togglingPostId === post._id}
+                                                title={post.isHidden ? "Unhide and show on Feed" : "Hide from public Feed"}
+                                            >
+                                                {togglingPostId === post._id ? (
+                                                    <span>Updating...</span>
+                                                ) : post.isHidden ? (
+                                                    <>
+                                                        <span>👁️</span>
+                                                        <span>Unhide</span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <span>🔒</span>
+                                                        <span>Hide</span>
+                                                    </>
+                                                )}
+                                            </button>
+                                            <button
+                                                className="delete-post-btn"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleDeletePost(post._id);
+                                                }}
+                                                disabled={deletingPostId === post._id}
+                                                title="Delete this post"
+                                            >
+                                                {deletingPostId === post._id ? (
+                                                    <span>Deleting...</span>
+                                                ) : (
+                                                    <>
+                                                        <span className="trash-icon">🗑️</span>
+                                                        <span>Delete</span>
+                                                    </>
+                                                )}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
