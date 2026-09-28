@@ -130,7 +130,7 @@ const Feed = () => {
                             </svg>
                         </div>
                         <span className="brand-name">
-                            NEXUS<span className="brand-accent">FEED</span>
+                            <span className="brand-accent">Socialx</span>
                         </span>
                     </div>
 
